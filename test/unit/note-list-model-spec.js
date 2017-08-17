@@ -1,25 +1,29 @@
 (function(){
-  console.log("NoteListModel: ");
+  test.describe("NoteListModel", function(){
 
-  function NoteMock(str) {
-    this._text = str;
-  }
-
-  NoteMock.prototype = {
-    text: function(){
-      return this._text;
+    function NoteMock(str) {
+      this._text = str;
     }
-  };
 
-  var noteListModel = new NoteListModel(NoteMock);
+    NoteMock.prototype = {
+      text: function(){
+        return this._text;
+      }
+    };
 
-  assert.isTrue(new NoteListModel().all().length === 0, "is instantiated with no notes");
+    var noteListModel = new NoteListModel(NoteMock);
 
-  noteListModel.create("a new note");
+    test.it("is instantiated with no notes", function() {
+      assert.isTrue(new NoteListModel().all().length === 0);
+    });
 
-  assert.isTrue(noteListModel.all().length === 1, "has a method to return its notes");
+    test.it("has a method to return its notes", function() {
+      noteListModel.create("a new note");
+      assert.isTrue(noteListModel.all().length === 1);
+    });
 
-  assert.isTrue(typeof(noteListModel.create("a new note")) === typeof(new NoteMock()), "creates note");
-
-  assert.isTrue(noteListModel.all().length === 2, "stores notes");
+    test.it("creates note", function() {
+      assert.isTrue(typeof(noteListModel.create("a new note")) === typeof(new NoteMock()));
+    });
+  });
 })();

@@ -1,46 +1,50 @@
 (function(){
-  console.log("NoteListView: ");
-  
-  // note mock as function because constructor is called (::new)
-  function NoteMock(str) {
-    this._text = str;
-  }
+  test.describe("NoteListView", function(){
 
-  NoteMock.prototype = {
-    text: function(){
-      return this._text;
+    // note mock as function because constructor is called (::new)
+    function NoteMock(str) {
+      this._text = str;
     }
-  };
 
-  // note list mocks as objects with functions as property values
-  var noteListMock = {
-    all: function() {
-      return [new NoteMock("a test")];
-    }
-  };
+    NoteMock.prototype = {
+      text: function(){
+        return this._text;
+      }
+    };
 
-  var emptyNoteListMock = {
-    all: function() {
-      return [];
-    }
-  };
+    // note list mocks as objects with functions as property values
+    var noteListMock = {
+      all: function() {
+        return [new NoteMock("a test")];
+      }
+    };
 
-  var manyNoteListMock = {
-    all: function() {
-      return [new NoteMock("a test"), new NoteMock("a second test")];
-    }
-  };
+    var emptyNoteListMock = {
+      all: function() {
+        return [];
+      }
+    };
 
-  var noteListView = new NoteListView(noteListMock);
+    var manyNoteListMock = {
+      all: function() {
+        return [new NoteMock("a test"), new NoteMock("a second test")];
+      }
+    };
 
-  assert.isTrue(noteListView.toHtml() === "<ul><li><div>a test</div></li></ul>", "toHtml method returns html string");
 
-  var manyNoteListView = new NoteListView(manyNoteListMock);
+    test.it("toHtml method returns html string", function() {
+      var noteListView = new NoteListView(noteListMock);
+      assert.isTrue(noteListView.toHtml() === "<ul><li><div>a test</div></li></ul>");
+    });
 
-  assert.isTrue(manyNoteListView.toHtml() === "<ul><li><div>a test</div></li><li><div>a second test</div></li></ul>", "can handle many notes");
+    test.it("can handle many notes", function() {
+      var manyNoteListView = new NoteListView(manyNoteListMock);
+      assert.isTrue(manyNoteListView.toHtml() === "<ul><li><div>a test</div></li><li><div>a second test</div></li></ul>");
+    });
 
-  var emptyNoteListView = new NoteListView(emptyNoteListMock);
-
-  assert.isTrue(emptyNoteListView.toHtml() === "<ul></ul>", "can handle empty notes");
-
+    test.it("can handle empty notes", function() {
+      var emptyNoteListView = new NoteListView(emptyNoteListMock);
+      assert.isTrue(emptyNoteListView.toHtml() === "<ul></ul>");
+    });
+  });
 })();

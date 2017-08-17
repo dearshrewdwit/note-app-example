@@ -1,10 +1,8 @@
 (function(exports){
   var assert = {
-    isTrue: function(assertionToCheck, testDescription) {
+    isTrue: function(assertionToCheck) {
       if (!assertionToCheck) {
-        throw new Error("Assertion failed: " + testDescription + " is not truthy");
-      } else {
-        console.log("Assertion passed: " + testDescription);
+        throw new Error("Assertion failed:" + assertionToCheck + " is not truthy");
       }
     }
   };
