@@ -1,4 +1,5 @@
 (function(){
+  console.log("NoteController: ");
   function NoteMock(str) {
     this._text = str;
   }
@@ -30,11 +31,10 @@
       return "<ul>" + listItems + "</ul>";
     }
   };
-  console.log("NoteController: ");
 
   var elementMock = {};
   var noteController = new NoteController(elementMock, noteListModelMock, NoteListViewMock);
   noteController.display();
-  
+
   assert.isTrue(elementMock.innerHTML === "<ul><li><div>a test</div></li></ul>", "the innerHTML property of the app element contains HTML");
 })();
